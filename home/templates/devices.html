@@ -1,10 +1,140 @@
-<!DOCTYPE html><html><body style="background:#0f172a;color:white;padding:20px;font-family:Arial">
-<h2>💡 Devices</h2>
-<p>Light: <b>{{light}}</b> | Door: <b>{{door}}</b></p>
-{% if msg %}<p style="color:lightgreen">{{msg}}</p>{% endif %}
-<form method="POST">{% csrf_token %}
-<label>Light:</label><select name="light"><option>OFF</option><option>ON</option></select><br><br>
-<label>Door:</label><select name="door"><option>LOCKED</option><option>UNLOCKED</option></select><br><br>
-<button style="padding:10px 20px;background:#22c55e;border:none">Save</button>
-</form><br><a href="/dashboard/" style="color:gray">Back</a>
-</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Home Devices</title>
+
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            padding: 30px;
+            font-family: Arial;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .devices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .device {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .device h2 {
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #22c55e;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🏠 Smart Home Devices</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="devices">
+
+            <!-- Light -->
+            <div class="device">
+                <h2>💡 Light</h2>
+
+                <select name="light">
+                    <option value="OFF">OFF</option>
+                    <option value="ON">ON</option>
+                </select>
+            </div>
+
+            <!-- Fan -->
+            <div class="device">
+                <h2>🌀 Fan</h2>
+
+                <select name="fan">
+                    <option value="OFF">OFF</option>
+                    <option value="ON">ON</option>
+                </select>
+            </div>
+
+            <!-- AC -->
+            <div class="device">
+                <h2>❄️ AC</h2>
+
+                <select name="ac">
+                    <option value="OFF">OFF</option>
+                    <option value="ON">ON</option>
+                </select>
+            </div>
+
+            <!-- TV -->
+            <div class="device">
+                <h2>📺 TV</h2>
+
+                <select name="tv">
+                    <option value="OFF">OFF</option>
+                    <option value="ON">ON</option>
+                </select>
+            </div>
+
+            <!-- Door -->
+            <div class="device">
+                <h2>🚪 Door</h2>
+
+                <select name="door">
+                    <option value="LOCKED">LOCKED</option>
+                    <option value="UNLOCKED">UNLOCKED</option>
+                </select>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <div style="text-align:center;">
+            <button type="submit">💾 Save Devices</button>
+        </div>
+
+    </form>
+
+    <a class="back" href="/dashboard/">← Back to Dashboard</a>
+
+</body>
+</html>
