@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><body style="background:#0f172a;color:white;padding:20px;font-family:Arial">
+<h2>💡 Devices</h2>
+<p>Light: <b>{{light}}</b> | Door: <b>{{door}}</b></p>
+{% if msg %}<p style="color:lightgreen">{{msg}}</p>{% endif %}
+<form method="POST">{% csrf_token %}
+<label>Light:</label><select name="light"><option>OFF</option><option>ON</option></select><br><br>
+<label>Door:</label><select name="door"><option>LOCKED</option><option>UNLOCKED</option></select><br><br>
+<button style="padding:10px 20px;background:#22c55e;border:none">Save</button>
+</form><br><a href="/dashboard/" style="color:gray">Back</a>
+</body></html>

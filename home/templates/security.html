@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><body style="background:#0f172a;color:white;padding:20px;font-family:Arial">
+<h2>🔒 Security Status</h2>
+<p>Current Alert: <b style="color:red">{{alert}}</b></p>
+<p>Camera: <b>{{camera}}</b></p>
+{% if msg %}<p style="color:lightgreen">{{msg}}</p>{% endif %}
+<form method="POST">{% csrf_token %}
+<label>Alert:</label><select name="alert"><option>No Intrusion</option><option>Motion Detected</option><option>Door Opened</option></select><br><br>
+<label>Camera:</label><select name="camera"><option>ON</option><option>OFF</option></select><br><br>
+<button style="padding:10px 20px;background:#22c55e;border:none">Save</button>
+</form><br><a href="/dashboard/" style="color:gray">Back</a>
+</body></html>
