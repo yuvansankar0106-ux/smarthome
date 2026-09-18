@@ -38,3 +38,14 @@ def settings(request):
     return render(request, 'dashboard.html')
 def devices(request):
     return render(request, 'home/devices.html')
+def login_view(request):
+    error = None
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # yuvan / 1234 thaan correct da
+        if username == 'yuvan' and password == '1234':
+            return redirect('verify_otp')
+        else:
+            error = "Password thappu da macha! yuvan / 1234 adi"
+    return render(request, 'login.html', {'error': error})
