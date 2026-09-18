@@ -13,3 +13,14 @@ def verify_otp_view(request):
     return redirect('/')
 def logout_view(request):
     return redirect('/login/')
+def security(request):
+    return render(request, 'dashboard.html')
+
+def energy(request):
+    return render(request, 'dashboard.html')
+
+def automation(request):
+    return render(request, 'dashboard.html')
+
+def settings(request):
+    return render(request, 'dashboard.html')
