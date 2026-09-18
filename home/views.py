@@ -36,3 +36,5 @@ def logout_view(request):
 # vere ethachum url miss aana ithu handle pannum
 def settings(request):
     return render(request, 'dashboard.html')
+def devices(request):
+    return render(request, 'home/devices.html')
