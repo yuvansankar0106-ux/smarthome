@@ -1,7 +1,77 @@
-<!DOCTYPE html><html><body style="background:#0f172a;color:white;text-align:center;padding-top:100px;font-family:Arial">
-<h1>🏠 Smart Home Login</h1>
-<form method="POST">{% csrf_token %}
-<input name="username" placeholder="username: student" style="padding:10px"><br><br>
-<input name="password" type="password" placeholder="password: 1234" style="padding:10px"><br><br>
-<button style="padding:10px 30px;background:#38bdf8;border:none">Login</button>
-</form></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartHome Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;font-family:'Segoe UI';color:#fff}
+.glass{width:360px;background:rgba(255,255,255,0.08);backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,0.15);border-radius:28px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.5)}
+input{width:100%;padding:14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:12px;color:#fff;margin:8px 0;outline:none}
+.btn{width:100%;padding:14px;background:#00ffcc;color:#000;border:none;border-radius:12px;font-weight:bold;margin-top:12px;cursor:pointer}
+.otp-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+.otp{width:65px;height:65px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:bold;transition:0.4s}
+.rotate{animation:rot 0.6s}
+@keyframes rot{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+.tick{width:70px;height:70px;border-radius:50%;background:rgba(0,255,204,0.2);border:2px solid #00ffcc;display:flex;align-items:center;justify-content:center;margin:15px auto;font-size:32px;animation:pop 0.5s}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="glass">
+  <!-- LOGIN PART -->
+  <div id="loginPart">
+    <h2>🏠 SmartHome</h2><p style="opacity:0.6;font-size:13px;margin:5px 0 15px">Login to continue</p>
+    <input id="user" placeholder="Username (yuvan)">
+    <input id="pass" type="password" placeholder="Password (1234)">
+    <button class="btn" onclick="doLogin()">Login →</button>
+    <p id="err" style="color:#ff6b6b;margin-top:10px;font-size:13px"></p>
+  </div>
+
+  <!-- OTP PART - ANTHA REEL MATHIRI DA! -->
+  <div id="otpPart" class="hidden">
+    <div style="font-size:28px">🔑</div>
+    <h2 id="otpTitle">Verify <span style="color:#ffcc00">OTP</span></h2>
+    <p style="opacity:0.6;font-size:12px">Your glassy secure code</p>
+    <div class="otp-row">
+      <div class="otp" id="o1">5</div><div class="otp" id="o2">6</div><div class="otp" id="o3">6</div><div class="otp" id="o4">5</div>
+    </div>
+    <p id="otpStatus" style="opacity:0.7;font-size:12px">Verifying code... ⏳</p>
+    <button class="btn" id="otpBtn" style="background:#ffcc00">⏳ Verifying Code...</button>
+    <div id="tickArea"></div>
+  </div>
+</div>
+
+<script>
+function doLogin(){
+  let u=document.getElementById('user').value;
+  let p=document.getElementById('pass').value;
+  if(u==='yuvan' && p==='1234'){
+    document.getElementById('loginPart').classList.add('hidden');
+    document.getElementById('otpPart').classList.remove('hidden');
+    startRotate();
+  } else {
+    document.getElementById('err').innerText='Username yuvan, Password 1234 da macha!';
+  }
+}
+function startRotate(){
+  let ids=['o1','o2','o3','o4'];
+  ids.forEach((id,i)=>{
+    setTimeout(()=>{
+      document.getElementById(id).classList.add('rotate');
+      setTimeout(()=>document.getElementById(id).classList.remove('rotate'),600);
+    }, i*300);
+  });
+  setTimeout(()=>{
+    document.getElementById('otpTitle').innerHTML='Verified <span style="color:#00ffcc">Successfully</span>';
+    document.getElementById('otpStatus').innerText='Your security code has been confirmed.';
+    document.getElementById('otpBtn').innerText='✔ Verified & Secured';
+    document.getElementById('otpBtn').style.background='#00ffcc';
+    document.getElementById('tickArea').innerHTML='<div class="tick">✔️</div>';
+    setTimeout(()=>{ window.location.href='/'; }, 1200);
+  }, 2000);
+}
+</script>
+</body>
+</html>

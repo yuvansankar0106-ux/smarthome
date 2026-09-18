@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verify OTP</title>
+<style>
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;align-items:center;justify-content:center;font-family:'Segoe UI';color:#fff;overflow:hidden}
+.bg-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,#00ffcc22,transparent);filter:blur(40px);animation:float 4s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.glass{position:relative;width:380px;background:rgba(255,255,255,0.07);backdrop-filter:blur(25px);border:1px solid rgba(255,255,255,0.15);border-radius:30px;padding:35px;text-align:center;z-index:2}
+.otp-box{display:flex;justify-content:center;gap:15px;margin:25px 0;flex-wrap:wrap}
+.otp{width:70px;height:70px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;backdrop-filter:blur(10px);transition:0.5s}
+.otp.rotate{animation:rotateOTP 0.6s ease}
+@keyframes rotateOTP{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+#status{margin:15px 0;font-size:14px;opacity:0.7}
+.btn-verify{width:100%;padding:15px;border-radius:15px;border:none;font-weight:bold;cursor:pointer;transition:0.4s}
+.verifying{background:#ffcc00;color:#000}.verified{background:#00ffcc;color:#000}
+.tick{width:80px;height:80px;background:rgba(0,255,204,0.2);border:2px solid #00ffcc;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:20px auto;font-size:40px;transform:scale(0);animation:pop 0.5s forwards}
+@keyframes pop{to{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="glass" id="glass">
+<div id="icon" style="font-size:30px">🔑</div>
+<h2 id="title">Verify <span style="color:#ffcc00">OTP</span></h2>
+<p style="opacity:0.6;font-size:13px">Enter the 4-digit code sent to your device</p>
+<div class="otp-box">
+<div class="otp" id="o1">{{ otp1 }}</div>
+<div class="otp" id="o2">{{ otp2 }}</div>
+<div class="otp" id="o3">{{ otp3 }}</div>
+<div class="otp" id="o4">{{ otp4 }}</div>
+</div>
+<p id="status">Didn't receive code? <span style="color:#ffcc00">Resend in 00:35</span></p>
+<button class="btn-verify verifying" id="btn">⏳ Verifying Code...</button>
+</div>
+
+<script>
+// ANIMATION - Nee reel la paatha mathiri da!
+let boxes = [o1,o2,o3,o4];
+boxes.forEach((b,i)=>{
+  setTimeout(()=>{ b.classList.add('rotate'); }, i*200);
+});
+
+// 2 sec kazhichu success kaamikalam da
+setTimeout(()=>{
+  document.getElementById('title').innerHTML = 'Verified <span style="color:#00ffcc">Successfully</span>';
+  document.getElementById('icon').innerHTML = '🛡️';
+  document.getElementById('glass').innerHTML += '<div class="tick">✔️</div>';
+  document.getElementById('btn').innerText = '✔ Verified & Secured';
+  document.getElementById('btn').className = 'btn-verify verified';
+  document.getElementById('status').innerText = 'Your security code has been confirmed.';
+
+  setTimeout(()=> window.location.href = '/', 1500);
+}, 2500);
+</script>
+</body>
+</html>

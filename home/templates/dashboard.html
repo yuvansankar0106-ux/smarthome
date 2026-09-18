@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SmartHome Advance - Yuvan</title>
+<title>SmartHome v6.0 - Final</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;font-family:'Segoe UI';padding:20px}
-.card{background:rgba(255,255,255,0.12);backdrop-filter:blur(15px);border-radius:20px;padding:20px;margin:15px 0;border:1px solid rgba(255,255,255,0.2)}
-.switch{position:relative;display:inline-block;width:60px;height:34px;float:right}
-.switch input{opacity:0;width:0;height:0}
-.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;transition:.4s;border-radius:34px}
-.slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background:white;transition:.4s;border-radius:50%}
-input:checked +.slider{background:#00ffcc}
-input:checked +.slider:before{transform:translateX(26px)}
+body{background:linear-gradient(180deg,#2a2a7a,#4a4ab5);color:white;font-family: 'Segoe UI', sans-serif;padding:12px;margin:0}
+.card{background:rgba(255,255,255,0.18);backdrop-filter:blur(10px);border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border:1px solid rgba(255,255,255,0.15)}
+.graph-card{background:rgba(255,255,255,0.15);border-radius:18px;padding:12px;margin-bottom:12px}
+.toggle{width:52px;height:28px;background:#5a5a8a;border-radius:20px;position:relative;cursor:pointer;transition:0.3s}
+.toggle.on{background:#00f5c8;box-shadow:0 0 10px #00f5c8}
+.toggle::after{content:'';width:22px;height:22px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:0.3s}
+.toggle.on::after{left:27px}
 </style>
 </head>
 <body>
-<h1>🏠 SmartHome ADVANCE v3.0</h1>
-<p>Welcome Yuvansankar! All AI Systems Online 🤖</p>
 
-<div class="card">
-<h3>🌡️ Living Room - <span id="temp">24</span>°C</h3>
-<canvas id="tempChart" height="100"></canvas>
+<div style="font-size:20px;font-weight:700">🏠 SmartHome ADVANCE v6.0<br><span style="font-size:11px;opacity:0.7">Welcome Yuvansankar! All Systems Online 🤖</span></div>
+
+<div class="graph-card">
+<div style="display:flex;justify-content:space-between;font-size:12px"><span>🌡️ Living Room - 25°C</span><span style="color:#00f5c8">● LIVE</span></div>
+<canvas id="chart" height="110"></canvas>
 </div>
 
-<div class="card">
-💡 Living Room Light
-<label class="switch"><input type="checkbox" id="light" onchange="toggle('Light')"><span class="slider"></span></label>
-<br><small id="lightStatus">Status: OFF</small>
-</div>
+<div class="card"><div><div style="font-weight:600">💡 Living Room Light</div><div style="font-size:11px;opacity:0.7">Status: OFF</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
 
-<div class="card">
-❄️ AC Control
-<label class="switch"><input type="checkbox" id="ac" checked onchange="toggle('AC')"><span class="slider"></span></label>
-<br><small id="acStatus">Status: ON - 24°C</small>
-</div>
+<div class="card"><div><div style="font-weight:600">❄️ AC Control</div><div style="font-size:11px;opacity:0.7">Status: ON - 24°C</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 
-<div class="card">
-🔒 Security <button onclick="voice()" style="float:right;padding:8px 15px;border-radius:10px;background:#00ffcc;border:0;font-weight:bold">🎤 Voice Command</button>
-<br><small>All Doors Locked ✅ | Camera Active</small>
-</div>
+<div class="card"><div><div style="font-weight:600">📺 Smart TV - Hall</div><div style="font-size:11px;opacity:0.7">Status: ON - Netflix Playing</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+<div class="card"><div><div style="font-weight:600">🚪 Main Door Lock</div><div style="font-size:11px;opacity:0.7">Status: Locked - Secure ✅</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+<div class="card"><div><div style="font-weight:600">🌀 Bedroom Fan</div><div style="font-size:11px;opacity:0.7">Status: OFF - Speed 0</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+
+<div class="card"><div><div style="font-weight:600">🔊 Speaker System</div><div style="font-size:11px;opacity:0.7">Status: ON - 70% Volume 🎵</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+
+<div class="card"><div><div style="font-weight:600">💧 Water Heater</div><div style="font-size:11px;opacity:0.7">Status: OFF - 25L Tank</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+
+<div class="card"><div><div style="font-weight:600">🔒 Security</div><div style="font-size:11px;opacity:0.7">All Doors Locked ✅ | Camera Active</div></div><div style="background:#00f5c8;color:#000;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:700">🎙️ Voice Command</div></div>
+
+<center style="margin-top:15px;opacity:0.5;font-size:11px">| Made by Yuvansankar | v6.0 AI FINAL |</center>
 
 <script>
-// Live Graph
-const ctx=document.getElementById('tempChart').getContext('2d');
-const chart=new Chart(ctx,{type:'line',data:{labels:['1m','2m','3m','4m','5m','Now'],datasets:[{label:'Temp',data:[22,23,22,24,23,24],borderColor:'#00ffcc',tension:0.4}]},options:{plugins:{legend:{display:false}}}});
-
-// Toggle Function
-function toggle(device){
-let status=document.getElementById(device.toLowerCase()).checked;
-document.getElementById(device.toLowerCase()+'Status').innerText='Status: '+(status?'ON 🔥':'OFF');
-if(status){new Audio().play();} // dummy
+new Chart(document.getElementById('chart'), {
+  type:'line',
+  data:{labels:['1m','2m','3m','4m','5m','Now'],datasets:[{data:[22,23,22,22.5,23.2,22.8],borderColor:'#5ef5d0',backgroundColor:'rgba(94,245,208,0.1)',tension:0.4,fill:true,pointRadius:3}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{min:22,max:23,grid:{color:'rgba(255,255,255,0.1)'},ticks:{color:'rgba(255,255,255,0.7)',font:{size:9}}},x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'rgba(255,255,255,0.7)',font:{size:9}}}}}
+});
+function toggle(id){
+  fetch(`/toggle/${id}/`)
+  .then(r=>r.json())
+  .then(d=>{
+    alert(d.status ? "ON ✅" : "OFF ❌");
+    // VOICE FIX
+const voiceBtn = document.getElementById('voiceBtn'); // un button id
+if ('webkitSpeechRecognition' in window) {
+    const rec = new webkitSpeechRecognition();
+    rec.lang = 'en-US';
+    rec.onresult = (e) => {
+        let cmd = e.results[0][0].transcript.toLowerCase();
+        console.log(cmd);
+        if(cmd.includes("light on")) {
+            // toggle logic
+            fetch('/', {method:'POST', headers:{'X-CSRFToken':'{{ csrf_token }}'}, body:'id=1'})
+        }
+    }
+    voiceBtn.onclick = () => rec.start();
+} else {
+    alert("Voice support illa da - Chrome la try pannu");
 }
-
-// Voice Control
-function voice(){
-if('webkitSpeechRecognition' in window){
-let rec=new webkitSpeechRecognition();rec.lang='en-US';rec.start();
-rec.onresult=function(e){
-let cmd=e.results[0][0].transcript.toLowerCase();
-alert('You said: '+cmd);
-if(cmd.includes('light on')){document.getElementById('light').checked=true;toggle('Light');}
-if(cmd.includes('light off')){document.getElementById('light').checked=false;toggle('Light');}
+  })
 }
-}else{alert('Voice not supported - Chrome la try pannu da!');}
-}
-
-// Auto Temp Change
-setInterval(()=>{let t=Math.floor(22+Math.random()*4);document.getElementById('temp').innerText=t;},3000);
 </script>
-<br><center>| Made by Yuvansankar | v3.0 AI</center>
 </body>
 </html>

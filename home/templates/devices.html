@@ -1,140 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Smart Home Devices</title>
-
-    <style>
-        body {
-            background: #0f172a;
-            color: white;
-            padding: 30px;
-            font-family: Arial;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .devices {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .device {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .device h2 {
-            margin-bottom: 15px;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: #22c55e;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #16a34a;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-            color: #38bdf8;
-            text-decoration: none;
-        }
-    </style>
+<title>Devices - SmartHome ADVANCE v4.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{background:linear-gradient(135deg,#1e1b4b,#312e81,#1e1b4b);color:white;font-family:Poppins,sans-serif;padding:15px;margin:0;min-height:100vh}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:18px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center}
+.card h3{margin:0;font-size:15px}
+.card p{margin:3px 0 0 0;font-size:11px;opacity:0.7}
+.toggle{width:52px;height:28px;background:#3a3a5c;border-radius:30px;position:relative;cursor:pointer;transition:0.3s}
+.toggle.on{background:#00f5c8}
+.toggle::after{content:'';width:22px;height:22px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:0.3s}
+.toggle.on::after{left:27px}
+.header{font-size:20px;font-weight:700;margin:10px 0}
+.back{color:#00f5c8;text-decoration:none;font-size:14px}
+</style>
 </head>
-
 <body>
+<a href="/dashboard/" class="back">← Back to Dashboard</a>
+<div class="header">🏠 SmartHome ADVANCE v4.0<br><span style="font-size:12px;opacity:0.6">All Devices Control</span></div>
 
-    <h1>🏠 Smart Home Devices</h1>
+<div class="card"><div><h3>💡 Living Room Light</h3><p>Status: OFF | Power: 12W</p></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+<div class="card"><div><h3>❄️ AC Control</h3><p>Status: ON - 24°C | Auto Mode</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="card"><div><h3>📺 Smart TV</h3><p>Status: OFF | Living Room</p></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+<div class="card"><div><h3>🔊 Speaker System</h3><p>Status: ON | Volume 60%</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+<div class="card"><div><h3>🚪 Main Door Lock</h3><p>Status: Locked | Secure</p></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 
-    <form method="POST">
-        {% csrf_token %}
-
-        <div class="devices">
-
-            <!-- Light -->
-            <div class="device">
-                <h2>💡 Light</h2>
-
-                <select name="light">
-                    <option value="OFF">OFF</option>
-                    <option value="ON">ON</option>
-                </select>
-            </div>
-
-            <!-- Fan -->
-            <div class="device">
-                <h2>🌀 Fan</h2>
-
-                <select name="fan">
-                    <option value="OFF">OFF</option>
-                    <option value="ON">ON</option>
-                </select>
-            </div>
-
-            <!-- AC -->
-            <div class="device">
-                <h2>❄️ AC</h2>
-
-                <select name="ac">
-                    <option value="OFF">OFF</option>
-                    <option value="ON">ON</option>
-                </select>
-            </div>
-
-            <!-- TV -->
-            <div class="device">
-                <h2>📺 TV</h2>
-
-                <select name="tv">
-                    <option value="OFF">OFF</option>
-                    <option value="ON">ON</option>
-                </select>
-            </div>
-
-            <!-- Door -->
-            <div class="device">
-                <h2>🚪 Door</h2>
-
-                <select name="door">
-                    <option value="LOCKED">LOCKED</option>
-                    <option value="UNLOCKED">UNLOCKED</option>
-                </select>
-            </div>
-
-        </div>
-
-        <br><br>
-
-        <div style="text-align:center;">
-            <button type="submit">💾 Save Devices</button>
-        </div>
-
-    </form>
-
-    <a class="back" href="/dashboard/">← Back to Dashboard</a>
-
+<center style="margin-top:20px;opacity:0.5;font-size:11px">| Made by Yuvansankar | v4.0 AI |</center>
+<script>
+document.querySelectorAll('.toggle').forEach(t=>{t.addEventListener('click',()=>{t.style.transform='scale(0.9)';setTimeout(()=>t.style.transform='scale(1)',150)})})
+</script>
 </body>
 </html>
