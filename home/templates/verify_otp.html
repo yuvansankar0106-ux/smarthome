@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Verify OTP</title>
 <style>
-body { display:flex; justify-content:center; align-items:center; height:100vh; background:#0a0a0a; color:white; font-family:Arial; }
-#glass { background:rgba(255,255,255,0.1); backdrop-filter:blur(20px); padding:40px; border-radius:20px; text-align:center; border:1px solid rgba(255,255,255,0.2); }
-.tick { font-size:50px; color:#00ff88; margin:20px; }
-.btn-verify { background:#00ff88; color:black; padding:12px 30px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
-.btn-verify.verified { background:#00ff88; }
+body{height:100vh;display:flex;justify-content:center;align-items:center;background:#080808;color:white;font-family:sans-serif}
+.box{background:rgba(255,255,255,0.1);padding:50px;border-radius:20px;backdrop-filter:blur(20px);text-align:center;border:1px solid rgba(255,255,255,0.2)}
+.tick{font-size:60px;color:#00ff88;display:none}
 </style>
 </head>
 <body>
-<div id="glass">
-<h2>Verifying...</h2>
-<p id="status">Checking security code...</p>
-<div id="btn">Loading...</div>
+<div class="box">
+<h2 id="text">Verifying...</h2>
+<div class="tick" id="tick">✓</div>
+<p id="sub">Checking security code</p>
 </div>
 
-<script>
-setTimeout(()=>{
-  document.getElementById('glass').innerHTML += '<div class="tick">✓</div>';
-  document.getElementById('btn').innerText = '✓ Verified & Secured';
-  document.getElementById('btn').className = 'btn-verify verified';
-  document.getElementById('status').innerText = 'Your security code has been confirmed.';
+<form method="POST" id="f" style="display:none">{% csrf_token %}</form>
 
-  setTimeout(()=> window.location.href = '/', 1500);
-}, 2500);
+<script>
+// 2.5 sec ku aprom tick varum
+setTimeout(()=>{
+ document.getElementById('text').innerText = 'Verified & Secured';
+ document.getElementById('sub').innerText = 'Redirecting to dashboard...';
+ document.getElementById('tick').style.display='block';
+},1500);
+
+// 4 sec ku aprom dashboard ku pogum
+setTimeout(()=>{
+ document.getElementById('f').submit();
+},3500);
 </script>
 </body>
 </html>
